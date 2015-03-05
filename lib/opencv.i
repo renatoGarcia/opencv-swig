@@ -60,6 +60,62 @@ CV_POINT(float, ff)
 %apply cv::Point_<float>* { cv::Point2f* };
 
 
+//-------------------------------------------------------------------- cv::Size
+
+#define CV_SIZE(type, format)                                              \
+%typemap(out) cv::Size_<type >                                             \
+{                                                                          \
+    $result = Py_BuildValue("(format)", $1.width, $1.height);              \
+}                                                                          \
+%typemap(out) cv::Size_<type >&, cv::Size_<type >*                         \
+{                                                                          \
+    $result = Py_BuildValue("(format)", $1->width, $1->height);            \
+}                                                                          \
+%typemap(in) cv::Size_<type >                                              \
+{                                                                          \
+    type width, height;                                                    \
+    if(!PyArg_ParseTuple($input, "format", &width, &height))               \
+    {                                                                      \
+        PyErr_SetString(PyExc_ValueError,                                  \
+                        "Error converting python tuple to cv::Size.");     \
+        return NULL;                                                       \
+    }                                                                      \
+    $1 = cv::Size_<type >(width, height);                                  \
+}                                                                          \
+%typemap(in) cv::Size_<type >&, cv::Size_<type >*                          \
+{                                                                          \
+    type width, height;                                                    \
+    if(!PyArg_ParseTuple($input, "format", &width, &height))               \
+    {                                                                      \
+        PyErr_SetString(PyExc_ValueError,                                  \
+                        "Error converting python tuple to cv::Size.");     \
+        return NULL;                                                       \
+    }                                                                      \
+    $1 = new cv::Size_<type >(width, height);                              \
+}                                                                          \
+%typemap(freearg) cv::Size_<type >&, cv::Size_<type >*                     \
+{                                                                          \
+    delete $1;                                                             \
+}                                                                          \
+%typemap(typecheck) cv::Size_<type >, cv::Size_<type >&, cv::Size_<type >* \
+{                                                                          \
+    $1 = PySequence_Check($input) && (PySequence_Size($input) == 2);       \
+}
+
+CV_SIZE(int, ii)
+CV_SIZE(double, dd)
+CV_SIZE(float, ff)
+%apply cv::Size_<int> { cv::Size, cv::Size2i };
+%apply cv::Size_<int>& { cv::Size&, cv::Size2i& };
+%apply cv::Size_<int>* { cv::Size*, cv::Size2i* };
+%apply cv::Size_<double> { cv::Size2d };
+%apply cv::Size_<double>& { cv::Size2d& };
+%apply cv::Size_<double>* { cv::Size2d* };
+%apply cv::Size_<float> { cv::Size2f };
+%apply cv::Size_<float>& { cv::Size2f& };
+%apply cv::Size_<float>* { cv::Size2f* };
+
+
 //-------------------------------------------------------------------- cv::Rect
 
 #define CV_RECT(type, format)                                                 \
