@@ -158,3 +158,19 @@ void point_float_p(cv::Point_<float>* p)
     const float t[2] = {0.079f, 0.624f};
     cmp(*p, t);
 }
+
+//-------------------------------------------------- PointTypecheck
+int pointTypecheck(cv::Point)
+{
+    return 1;
+}
+
+int pointTypecheck(cv::Point2f)
+{
+    return 2;
+}
+
+int pointTypecheck(cv::Point2d)
+{
+    return 3;
+}
