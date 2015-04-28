@@ -4,8 +4,6 @@ import rect
 
 
 def cmp(r, t):
-    assert(isinstance(r, tuple))
-    assert(isinstance(t, tuple))
     epsilon = 0.0001
     for p in zip(r, t):
         assert(abs(p[0] - p[1]) < epsilon)
@@ -38,3 +36,9 @@ cmp(rect.rect_float_p(), (0.547, 0.462, 0.337, 0.951))
 rect.rect_float((0.488, 0.797, 0.436, 0.618))
 rect.rect_float_r((0.827, 0.373, 0.257, 0.981))
 rect.rect_float_p((0.097, 0.033, 0.570, 0.466))
+
+assert rect.rectTypecheck((1, 2, 3, 4)) == 3
+assert rect.rectTypecheck((1.1, 2.2, 3.3, 4.4)) == 3
+assert rect.rectTypecheck(rect.Rect__float(1.1, 2.2, 3.3, 4.4)) == 2
+assert rect.rectTypecheck(rect.Rect__double(1.1, 2.2, 3.3, 4.4)) == 3
+assert rect.rectTypecheck(rect.Rect(1, 2, 3, 4)) == 1

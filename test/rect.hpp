@@ -16,7 +16,6 @@ void cmp(const cv::Rect_<T>& r, const T t[4])
 
 
 //-------------------------------------------------- Rect
-
 cv::Rect rect()
 {
     return cv::Rect(18, 4, 154, 150);
@@ -52,7 +51,6 @@ void rect_p(cv::Rect* r)
 }
 
 //-------------------------------------------------- Rect_<int>
-
 cv::Rect_<int> rect_int()
 {
     return cv::Rect_<int>(20, 183, 191, 148);
@@ -89,7 +87,6 @@ void rect_int_p(cv::Rect_<int>* r)
 
 
 //-------------------------------------------------- Rect_<double>
-
 cv::Rect_<double> rect_double()
 {
     return cv::Rect_<double>(0.988, 0.837, 0.419, 0.672);
@@ -126,7 +123,6 @@ void rect_double_p(cv::Rect_<double>* r)
 
 
 //-------------------------------------------------- Rect_<float>
-
 cv::Rect_<float> rect_float()
 {
     return cv::Rect_<float>(0.357f, 0.460f, 0.384f, 0.103f);
@@ -159,4 +155,20 @@ void rect_float_p(cv::Rect_<float>* r)
 {
     const float t[4] = {0.097f, 0.033f, 0.570f, 0.466f};
     cmp(*r, t);
+}
+
+//-------------------------------------------------- RectTypecheck
+int rectTypecheck(cv::Rect)
+{
+    return 1;
+}
+
+int rectTypecheck(cv::Rect_<float>)
+{
+    return 2;
+}
+
+int rectTypecheck(cv::Rect_<double>)
+{
+    return 3;
 }

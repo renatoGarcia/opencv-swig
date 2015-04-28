@@ -158,3 +158,19 @@ void size_float_p(cv::Size_<float>* s)
     const float t[2] = {0.531f, 0.205f};
     cmp(*s, t);
 }
+
+//-------------------------------------------------- SizeTypecheck
+int sizeTypecheck(cv::Size)
+{
+    return 1;
+}
+
+int sizeTypecheck(cv::Size2f)
+{
+    return 2;
+}
+
+int sizeTypecheck(cv::Size2d)
+{
+    return 3;
+}

@@ -4,8 +4,6 @@ import size
 
 
 def cmp(r, t):
-    assert(isinstance(r, tuple))
-    assert(isinstance(t, tuple))
     epsilon = 0.0001
     for p in zip(r, t):
         assert(abs(p[0] - p[1]) < epsilon)
@@ -38,3 +36,9 @@ cmp(size.size_float_p(), (0.231, 0.396))
 size.size_float((0.464, 0.239))
 size.size_float_r((0.917, 0.375))
 size.size_float_p((0.531, 0.205))
+
+assert size.sizeTypecheck((1, 2)) == 3
+assert size.sizeTypecheck((1.1, 2.2)) == 3
+assert size.sizeTypecheck(size.Size2f(1.1, 2.2)) == 2
+assert size.sizeTypecheck(size.Size2d(1.1, 2.2)) == 3
+assert size.sizeTypecheck(size.Size2i(1, 2)) == 1

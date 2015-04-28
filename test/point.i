@@ -1,6 +1,6 @@
 %module point
 
-%include "opencv.i"
+%include <opencv/point.i>
 
 %header %{
 #include "point.hpp"

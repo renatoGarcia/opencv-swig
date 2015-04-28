@@ -1,6 +1,6 @@
 %module size
 
-%import "opencv.i"
+%include <opencv/size.i>
 
 %header %{
 #include "size.hpp"

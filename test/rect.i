@@ -1,6 +1,6 @@
 %module rect
 
-%import "opencv.i"
+%include <opencv/rect.i>
 
 %header %{
 #include "rect.hpp"
