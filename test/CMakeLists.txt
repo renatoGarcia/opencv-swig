@@ -5,7 +5,7 @@ find_package(SWIG REQUIRED)
 set(CMAKE_SWIG_FLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/../lib/")
 include(${SWIG_USE_FILE})
 
-find_package(PythonLibs 2.7)
+find_package(PythonLibs 3)
 include_directories(${PYTHON_INCLUDE_PATH})
 
 find_package(OPENCV REQUIRED opencv_core)
@@ -33,6 +33,18 @@ swig_add_module(rect python rect.i rect.hpp)
 swig_link_libraries(rect ${OPENCV_LIBRARIES})
 file(COPY run_rect.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 add_test(NAME rect COMMAND ./run_rect.py)
+
+set_source_files_properties(matx.i PROPERTIES CPLUSPLUS ON)
+swig_add_module(matx python matx.i matx.hpp)
+swig_link_libraries(matx ${OPENCV_LIBRARIES})
+file(COPY run_matx.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_test(NAME matx COMMAND ./run_matx.py)
+
+set_source_files_properties(vec.i PROPERTIES CPLUSPLUS ON)
+swig_add_module(vec python vec.i vec.hpp)
+swig_link_libraries(vec ${OPENCV_LIBRARIES})
+file(COPY run_vec.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_test(NAME vec COMMAND ./run_vec.py)
 
 set_source_files_properties(mat.i PROPERTIES CPLUSPLUS ON)
 swig_add_module(mat python mat.i mat.hpp)
