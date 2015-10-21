@@ -1,26 +1,10 @@
 %include <std_vector.i>
-
+%include <opencv/_numpy.i>
 
 %pythoncode
 {
-    import sys
-    if sys.byteorder == 'little':
-        _endianess = '<'
-    else:
-        _endianess = '>'
-
     _array_map = {}
-    _typestr_map = {}
 }
-
-%inline
-%{
-    template <typename T>
-    struct _SizeOf
-    {
-        enum {value = sizeof(T)};
-    };
-%}
 
 /* %cv_matx_instantiate(type, d1, d2, type_alias, np_basic_type)
  *
@@ -42,23 +26,17 @@
  */
 %define %cv_matx_instantiate(type, d1, d2, type_alias, np_basic_type)
 
-    // If it hasn't been instantiated yet, instantiate all auxiliary structure to this
-    // Matx value type.
+    %cv_numpy_add_type(type, np_basic_type)
+
     #if !_ARRAY_##type##_INSTANTIATED_
         %template(_##type##Array) std::vector< type >;
-        %template(_sizeof_##type) _SizeOf< type >;
-        #define _ARRAY_##type##_INSTANTIATED_
         %pythoncode
         {
             _array_map[#type] = _##type##Array
-            if _sizeof_##type##.value == 1:
-                _typestr_map[#type] = "|" + #np_basic_type + "1"
-            else:
-                _typestr_map[#type] = _endianess  + #np_basic_type + str(_sizeof_##type##.value)
         }
+        #define _ARRAY_##type##_INSTANTIATED_
     #endif
 
-    // If it hasn't been instantiated yet, instantiate the Matx wrapper code.
     #if !_CV_MAT_##type##_##d1##_##d2##_INSTANTIATED_
         %template(_Matx_##type##_##d1##_##d2) cv::Matx< type, d1, d2>;
         %pythoncode
@@ -319,7 +297,7 @@ namespace cv
                 rows = int(ma.group("rows"))
                 cols = int(ma.group("cols"))
                 return {"shape": (rows, cols),
-                        "typestr": _typestr_map[value_type],
+                        "typestr": _cv_numpy_typestr_map[value_type],
                         "data": (int(self.val), False)}
             else:
                 return object.__getattribute__(self, name)

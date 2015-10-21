@@ -136,7 +136,7 @@ namespace cv
                 value_type = ma.group("value_type")
                 rows = int(ma.group("rows"))
                 return {"shape": (rows, 1),
-                        "typestr": _typestr_map[value_type],
+                        "typestr": _cv_numpy_typestr_map[value_type],
                         "data": (int(self.val), False)}
             else:
                 return object.__getattribute__(self, name)
