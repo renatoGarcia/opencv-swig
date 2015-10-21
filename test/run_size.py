@@ -9,36 +9,17 @@ def cmp(r, t):
         assert(abs(p[0] - p[1]) < epsilon)
 
 
-cmp(size.size(),   (14, 55))
-cmp(size.size_r(), (154, 88))
-cmp(size.size_p(), (54, 25))
-size.size((21, 175))
-size.size_r((94, 96))
-size.size_p((211, 35))
+cmp(size.return_Size(), (14, 55))
+size.receive_Size(size.Size(21, 175))
 
-cmp(size.size_int(),   (203, 17))
-cmp(size.size_int_r(), (158, 87))
-cmp(size.size_int_p(), (150, 215))
-size.size_int((250, 128))
-size.size_int_r((59, 147))
-size.size_int_p((17, 180))
+cmp(size.return_Size2i(), (203, 17))
+size.receive_Size2i(size.Size2i(250, 128))
 
-cmp(size.size_double(),   (0.039, 0.377))
-cmp(size.size_double_r(), (0.720, 0.189))
-cmp(size.size_double_p(), (0.862, 0.046))
-size.size_double((0.637, 0.256))
-size.size_double_r((0.002, 0.211))
-size.size_double_p((0.162, 0.433))
+cmp(size.return_Size2d(), (0.039, 0.377))
+size.receive_Size2d(size.Size2d(0.637, 0.256))
 
-cmp(size.size_float(),   (0.460, 0.339))
-cmp(size.size_float_r(), (0.948, 0.315))
-cmp(size.size_float_p(), (0.231, 0.396))
-size.size_float((0.464, 0.239))
-size.size_float_r((0.917, 0.375))
-size.size_float_p((0.531, 0.205))
+cmp(size.return_Size2f(), (0.460, 0.339))
+size.receive_Size2f(size.Size2f(0.464, 0.239))
 
-assert size.sizeTypecheck((1, 2)) == 3
-assert size.sizeTypecheck((1.1, 2.2)) == 3
-assert size.sizeTypecheck(size.Size2f(1.1, 2.2)) == 2
-assert size.sizeTypecheck(size.Size2d(1.1, 2.2)) == 3
-assert size.sizeTypecheck(size.Size2i(1, 2)) == 1
+# Test Vec constructor
+cmp(size.Size2i(size.Point2i(23, 58)), (23, 58))
