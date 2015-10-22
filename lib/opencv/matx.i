@@ -48,13 +48,13 @@
         #define _ARRAY_##type##_INSTANTIATED_
     #endif
 
-    #if !_CV_MAT_##type##_##d1##_##d2##_INSTANTIATED_
+    #if !_CV_MATX_##type##_##d1##_##d2##_INSTANTIATED_
         %template(_Matx_##type##_##d1##_##d2) cv::Matx< type, d1, d2>;
         %pythoncode
         %{
             Matx##d1##d2##type_alias = _Matx_##type##_##d1##_##d2
         %}
-        #define _CV_MAT_##type##_##d1##_##d2##_INSTANTIATED_
+        #define _CV_MATX_##type##_##d1##_##d2##_INSTANTIATED_
     #endif
 %enddef
 

@@ -36,7 +36,7 @@
         %template(_Vec_##type##_##d1) cv::Vec< type, d1>;
         %pythoncode
         %{
-            Vec##d1##type_alias = _Vec_##type##_##d1##
+            Vec##d1##type_alias = _Vec_##type##_##d1
         %}
         #define _CV_VEC_##type##_##d1##_INSTANTIATED_
     #endif
