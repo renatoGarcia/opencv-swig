@@ -16,6 +16,12 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 
 enable_testing()
 
+set_source_files_properties(range.i PROPERTIES CPLUSPLUS ON)
+swig_add_module(range python range.i range.hpp)
+swig_link_libraries(range ${OPENCV_LIBRARIES})
+file(COPY run_range.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_test(NAME range COMMAND ./run_range.py)
+
 set_source_files_properties(point.i PROPERTIES CPLUSPLUS ON)
 swig_add_module(point python point.i point.hpp)
 swig_link_libraries(point ${OPENCV_LIBRARIES})
