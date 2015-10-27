@@ -1,65 +1,51 @@
 cmake_minimum_required(VERSION 3.1)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR})
 
 find_package(SWIG REQUIRED)
 set(CMAKE_SWIG_FLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/../lib/")
 include(${SWIG_USE_FILE})
 
 find_package(PythonLibs 3)
-include_directories(${PYTHON_INCLUDE_PATH})
-
-find_package(OPENCV REQUIRED opencv_core)
+find_package(OpenCV REQUIRED opencv_core)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}
-    ${OPENCV_INCLUDE_DIRS}
-    ${PYTHON_INCLUDE_PATH})
+    ${OpenCV_INCLUDE_DIRS}
+    ${PYTHON_INCLUDE_DIRS})
 
 enable_testing()
 
-set_source_files_properties(range.i PROPERTIES CPLUSPLUS ON)
-swig_add_module(range python range.i range.hpp)
-swig_link_libraries(range ${OPENCV_LIBRARIES})
-file(COPY run_range.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-add_test(NAME range COMMAND ./run_range.py)
+macro(ADD_TEST_RULES name)
+    execute_process(COMMAND "${SWIG_EXECUTABLE}" "-python" "-c++"
+        ${CMAKE_SWIG_FLAGS} "-MM" "${CMAKE_CURRENT_SOURCE_DIR}/${name}.i"
+        OUTPUT_VARIABLE ${name}_DEPENDENCIES)
 
-set_source_files_properties(scalar.i PROPERTIES CPLUSPLUS ON)
-swig_add_module(scalar python scalar.i scalar.hpp)
-swig_link_libraries(scalar ${OPENCV_LIBRARIES})
-file(COPY run_scalar.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-add_test(NAME scalar COMMAND ./run_scalar.py)
+    # Remove the first line
+    string(REGEX REPLACE "^.+: +\\\\\n +" ""
+        ${name}_DEPENDENCIES "${${name}_DEPENDENCIES}")
+    # Clean the end of each line
+    string(REGEX REPLACE " +(\\\\)?\n" "\n"
+        ${name}_DEPENDENCIES "${${name}_DEPENDENCIES}")
+    # Clean beginning of each line
+    string(REGEX REPLACE "\n +" "\n"
+        ${name}_DEPENDENCIES "${${name}_DEPENDENCIES}")
+    # clean paths
+    string(REGEX REPLACE "\\\\\\\\" "/"
+        ${name}_DEPENDENCIES "${${name}_DEPENDENCIES}")
+    string(REGEX REPLACE "\n" ";"
+        ${name}_DEPENDENCIES "${${name}_DEPENDENCIES}")
 
-set_source_files_properties(point.i PROPERTIES CPLUSPLUS ON)
-swig_add_module(point python point.i point.hpp)
-swig_link_libraries(point ${OPENCV_LIBRARIES})
-file(COPY run_point.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-add_test(NAME point COMMAND ./run_point.py)
+    set(SWIG_MODULE_${name}_EXTRA_DEPS ${${name}_DEPENDENCIES})
+    set_source_files_properties(${name}.i PROPERTIES CPLUSPLUS ON)
+    swig_add_module(${name} python ${name}.i ${name}.hpp)
+    swig_link_libraries(${name} "${OpenCV_LIBRARIES}")
+    add_test(NAME ${name}
+        COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/run_${name}.py")
+endmacro(ADD_TEST_RULES)
 
-set_source_files_properties(size.i PROPERTIES CPLUSPLUS ON)
-swig_add_module(size python size.i size.hpp)
-swig_link_libraries(size ${OPENCV_LIBRARIES})
-file(COPY run_size.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-add_test(NAME size COMMAND ./run_size.py)
-
-set_source_files_properties(rect.i PROPERTIES CPLUSPLUS ON)
-swig_add_module(rect python rect.i rect.hpp)
-swig_link_libraries(rect ${OPENCV_LIBRARIES})
-file(COPY run_rect.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-add_test(NAME rect COMMAND ./run_rect.py)
-
-set_source_files_properties(matx.i PROPERTIES CPLUSPLUS ON)
-swig_add_module(matx python matx.i matx.hpp)
-swig_link_libraries(matx ${OPENCV_LIBRARIES})
-file(COPY run_matx.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-add_test(NAME matx COMMAND ./run_matx.py)
-
-set_source_files_properties(vec.i PROPERTIES CPLUSPLUS ON)
-swig_add_module(vec python vec.i vec.hpp)
-swig_link_libraries(vec ${OPENCV_LIBRARIES})
-file(COPY run_vec.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-add_test(NAME vec COMMAND ./run_vec.py)
-
-set_source_files_properties(mat.i PROPERTIES CPLUSPLUS ON)
-swig_add_module(mat python mat.i mat.hpp)
-swig_link_libraries(mat ${OPENCV_LIBRARIES})
-file(COPY run_mat.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-add_test(NAME mat COMMAND ./run_mat.py)
+add_test_rules(range)
+add_test_rules(scalar)
+add_test_rules(point)
+add_test_rules(size)
+add_test_rules(rect)
+add_test_rules(matx)
+add_test_rules(vec)
+# add_test_rules(mat)
