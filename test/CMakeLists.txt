@@ -22,6 +22,12 @@ swig_link_libraries(range ${OPENCV_LIBRARIES})
 file(COPY run_range.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 add_test(NAME range COMMAND ./run_range.py)
 
+set_source_files_properties(scalar.i PROPERTIES CPLUSPLUS ON)
+swig_add_module(scalar python scalar.i scalar.hpp)
+swig_link_libraries(scalar ${OPENCV_LIBRARIES})
+file(COPY run_scalar.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+add_test(NAME scalar COMMAND ./run_scalar.py)
+
 set_source_files_properties(point.i PROPERTIES CPLUSPLUS ON)
 swig_add_module(point python point.i point.hpp)
 swig_link_libraries(point ${OPENCV_LIBRARIES})
