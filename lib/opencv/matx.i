@@ -118,6 +118,7 @@
         static M* construct(std::vector<typename M::value_type> const& arg)
         {
             IF_ELSE_CHAIN(10)
+            return NULL;
         }
     };
 
@@ -128,6 +129,7 @@
             static M* construct(std::vector<typename M::value_type> const& arg) \
             {                                                               \
                 IF_ELSE_CHAIN(channels)                                     \
+                return NULL;                                                \
             }                                                               \
         };
 
