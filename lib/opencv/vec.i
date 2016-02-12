@@ -12,6 +12,7 @@
 %include <stdint.i>
 %include <opencv/matx.i>
 
+%include <opencv/_vec.i>
 
 /* %cv_vec_instantiate(type, d1, type_alias, np_basic_type)
  *
@@ -34,84 +35,15 @@
     #if !_CV_VEC_##type##_##d1##_INSTANTIATED_
         %cv_matx_instantiate(type, d1, 1, type_alias, np_basic_type)
         %template(_Vec_##type##_##d1) cv::Vec< type, d1>;
+        %template(_DataType_Vec_##type##_##d1) cv::DataType<cv::Vec< type, d1> >;
         %pythoncode
         %{
             Vec##d1##type_alias = _Vec_##type##_##d1
+            DataType_Vec##d1##type_alias = _DataType_Vec_##type##_##d1
         %}
         #define _CV_VEC_##type##_##d1##_INSTANTIATED_
     #endif
 %enddef
-
-
-namespace cv
-{
-    template<typename _Tp, int cn> class Vec : public Matx<_Tp, cn, 1>
-    {
-    public:
-        typedef _Tp value_type;
-        enum { depth    = Matx<_Tp, cn, 1>::depth,
-               channels = cn,
-               type     = CV_MAKETYPE(depth, channels)
-        };
-
-        explicit Vec(const _Tp* values);
-
-        Vec(const Vec<_Tp, cn>& v);
-
-        static Vec all(_Tp alpha);
-
-        //! per-element multiplication
-        Vec mul(const Vec<_Tp, cn>& v) const;
-
-        //! conjugation (makes sense for complex numbers and quaternions)
-        /* Vec conj() const; */
-
-        /*!
-          cross product of the two 3D vectors.
-
-          For other dimensionalities the exception is raised
-        */
-        /* Vec cross(const Vec& v) const; */
-        //! conversion to another data type
-        template<typename T2> operator Vec<T2, cn>() const;
-
-        const _Tp& operator()(int i) const;
-
-        Vec(const Matx<_Tp, cn, 1>& a, const Matx<_Tp, cn, 1>& b, Matx_AddOp);
-        Vec(const Matx<_Tp, cn, 1>& a, const Matx<_Tp, cn, 1>& b, Matx_SubOp);
-        template<typename _T2> Vec(const Matx<_Tp, cn, 1>& a, _T2 alpha, Matx_ScaleOp);
-    };
-
-    // Changed uchar to uint8_t
-    typedef Vec<uint8_t, 2> Vec2b;
-    typedef Vec<uint8_t, 3> Vec3b;
-    typedef Vec<uint8_t, 4> Vec4b;
-
-    typedef Vec<short, 2> Vec2s;
-    typedef Vec<short, 3> Vec3s;
-    typedef Vec<short, 4> Vec4s;
-
-    typedef Vec<ushort, 2> Vec2w;
-    typedef Vec<ushort, 3> Vec3w;
-    typedef Vec<ushort, 4> Vec4w;
-
-    typedef Vec<int, 2> Vec2i;
-    typedef Vec<int, 3> Vec3i;
-    typedef Vec<int, 4> Vec4i;
-    typedef Vec<int, 6> Vec6i;
-    typedef Vec<int, 8> Vec8i;
-
-    typedef Vec<float, 2> Vec2f;
-    typedef Vec<float, 3> Vec3f;
-    typedef Vec<float, 4> Vec4f;
-    typedef Vec<float, 6> Vec6f;
-
-    typedef Vec<double, 2> Vec2d;
-    typedef Vec<double, 3> Vec3d;
-    typedef Vec<double, 4> Vec4d;
-    typedef Vec<double, 6> Vec6d;
-}
-
 
 %extend cv::Vec
 {

@@ -18,20 +18,27 @@
         _cv_numpy_endianess = '>'
 
     _cv_numpy_typestr_map = {}
+    _cv_numpy_bla = {}
 }
 
 %inline
 %{
-    template <typename T>
-    struct _SizeOf
+    namespace cv
     {
-        enum {value = sizeof(T)};
-    };
+        template <typename T>
+        struct _SizeOf
+        {
+            enum {value = sizeof(T)};
+        };
+    }
 %}
 
 %define %cv_numpy_add_type(type, np_basic_type)
     #if !_CV_NUMPY_##type##_
-        %template(_cv_numpy_sizeof_##type) _SizeOf< type >;
+        namespace cv
+        {
+            %template(_cv_numpy_sizeof_##type) _SizeOf< type >;
+        }
         %pythoncode
         {
             if _cv_numpy_sizeof_##type##.value == 1:
