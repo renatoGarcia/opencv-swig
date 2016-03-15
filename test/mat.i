@@ -1,6 +1,7 @@
 %module mat
 
-%include "opencv.i"
+%include <opencv/mat.i>
+%cv_mat__instantiate_defaults
 
 %header %{
 #include "mat.hpp"

@@ -11,8 +11,8 @@
 
 %pythoncode
 {
-    import sys
-    if sys.byteorder == 'little':
+    import sys as _sys
+    if _sys.byteorder == 'little':
         _cv_numpy_endianess = '<'
     else:
         _cv_numpy_endianess = '>'
