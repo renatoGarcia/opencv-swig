@@ -52,22 +52,31 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%header
-%{
-    #include <opencv2/core/core.hpp>
-%}
-
 namespace cv
 {
-    class Range
+    template<typename _Tp> class Size_
     {
     public:
-        Range();
-        Range(int _start, int _end);
-        int size() const;
-        bool empty() const;
-        static Range all();
+        typedef _Tp value_type;
 
-        int start, end;
+        //! various constructors
+        Size_();
+        Size_(_Tp _width, _Tp _height);
+        Size_(const Size_& sz);
+        Size_(const Point_<_Tp>& pt);
+
+        /* Size_& operator = (const Size_& sz); */
+        //! the area (width*height)
+        _Tp area() const;
+
+        /* //! conversion of another data type. */
+        template<typename _Tp2> operator Size_<_Tp2>() const;
+
+        _Tp width, height; // the width and the height
     };
+
+    typedef Size_<int> Size2i;
+    typedef Size_<float> Size2f;
+    typedef Size_<double> Size2d;
+    typedef Size2i Size;
 }

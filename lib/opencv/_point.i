@@ -52,22 +52,41 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%header
-%{
-    #include <opencv2/core/core.hpp>
-%}
-
 namespace cv
 {
-    class Range
+    template<typename _Tp> class Point_
     {
     public:
-        Range();
-        Range(int _start, int _end);
-        int size() const;
-        bool empty() const;
-        static Range all();
+        typedef _Tp value_type;
 
-        int start, end;
+        // various constructors
+        Point_();
+        Point_(_Tp _x, _Tp _y);
+        /* Point_(const Point_& pt); */
+        /* Point_(const Size_<_Tp>& sz); */
+        Point_(const Vec<_Tp, 2>& v);
+
+        /* Point_& operator = (const Point_& pt); */
+        /* //! conversion to another data type */
+        /* template<typename _Tp2> operator Point_<_Tp2>() const; */
+
+        /* //! conversion to the old-style C structures */
+        /* operator Vec<_Tp, 2>() const; */
+
+        //! dot product
+        _Tp dot(const Point_& pt) const;
+        //! dot product computed in double-precision arithmetics
+        double ddot(const Point_& pt) const;
+        //! cross-product
+        double cross(const Point_& pt) const;
+        /* //! checks whether the point is inside the specified rectangle */
+        /* bool inside(const Rect_<_Tp>& r) const; */
+
+        _Tp x, y; //< the point coordinates
     };
+
+    typedef Point_<int> Point2i;
+    typedef Point_<float> Point2f;
+    typedef Point_<double> Point2d;
+    typedef Point2i Point;
 }

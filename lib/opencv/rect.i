@@ -29,46 +29,7 @@
     #include <sstream>
 %}
 
-namespace cv
-{
-    template<typename _Tp> class Rect_
-    {
-    public:
-        typedef _Tp value_type;
-
-        //! various constructors
-        Rect_();
-        Rect_(_Tp _x, _Tp _y, _Tp _width, _Tp _height);
-        Rect_(const Rect_& r);
-        Rect_(const Point_<_Tp>& org, const Size_<_Tp>& sz);
-        Rect_(const Point_<_Tp>& pt1, const Point_<_Tp>& pt2);
-
-        /* Rect_& operator = ( const Rect_& r ); */
-        //! the top-left corner
-        Point_<_Tp> tl() const;
-        //! the bottom-right corner
-        Point_<_Tp> br() const;
-
-        //! size (width, height) of the rectangle
-        Size_<_Tp> size() const;
-        //! area (width*height) of the rectangle
-        _Tp area() const;
-
-        //! conversion to another data type
-        template<typename _Tp2> operator Rect_<_Tp2>() const;
-
-        //! checks whether the rectangle contains the point
-        bool contains(const Point_<_Tp>& pt) const;
-
-        _Tp x, y, width, height; //< the top-left corner, as well as width and height of the rectangle
-    };
-
-    typedef Rect_<int> Rect2i;
-    typedef Rect_<float> Rect2f;
-    typedef Rect_<double> Rect2d;
-    typedef Rect2i Rect;
-
-}
+%include <opencv/_rect.i>
 
 %extend cv::Rect_
 {
