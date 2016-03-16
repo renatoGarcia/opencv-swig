@@ -52,9 +52,17 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%header
-%{
-    #include <opencv2/core.hpp>
-%}
+namespace cv
+{
+    class Range
+    {
+    public:
+        Range();
+        Range(int _start, int _end);
+        int size() const;
+        bool empty() const;
+        static Range all();
 
-%include <opencv/_range.i>
+        int start, end;
+    };
+}
