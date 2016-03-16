@@ -39,11 +39,11 @@
             return iter((self.x, self.y, self.width, self.height))
     }
 
-    char const* __str__()
+    std::string __str__()
     {
         std::ostringstream s;
         s << *$self;
-        return s.str().c_str();
+        return s.str();
     }
 }
 

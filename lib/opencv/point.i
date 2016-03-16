@@ -11,6 +11,8 @@
 
 %include <opencv/vec.i>
 
+%include <std_string.i>
+
 %include <opencv/_point.i>
 
 %define %cv_point_instantiate(type, type_alias)
@@ -38,11 +40,11 @@
             return iter((self.x, self.y))
     }
 
-    char const* __str__()
+    std::string __str__()
     {
         std::ostringstream s;
         s << *$self;
-        return s.str().c_str();
+        return s.str();
     }
 }
 

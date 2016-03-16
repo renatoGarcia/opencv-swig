@@ -64,6 +64,7 @@ namespace cv
 %header
 %{
     #include <opencv2/core/core.hpp>
+    #include <sstream>
 %}
 
 %inline

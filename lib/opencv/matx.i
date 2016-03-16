@@ -11,6 +11,7 @@
 
 %include <opencv/_numpy.i>
 
+%include <std_string.i>
 %include <std_vector.i>
 
 %pythoncode
@@ -214,11 +215,11 @@
             return self(i, j)
     }
 
-    char const* __str__()
+    std::string __str__()
     {
         std::ostringstream s;
         s << *$self;
-        return s.str().c_str();
+        return s.str();
     }
 }
 
