@@ -37,8 +37,6 @@ macro(ADD_TEST_RULES name)
     set_source_files_properties(${name}.i PROPERTIES CPLUSPLUS ON)
     swig_add_module(${name} python ${name}.i ${name}.hpp)
     swig_link_libraries(${name} "${OpenCV_LIBRARIES}")
-    add_test(NAME ${name}
-        COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/run_${name}.py")
 endmacro(ADD_TEST_RULES)
 
 add_test_rules(range)
