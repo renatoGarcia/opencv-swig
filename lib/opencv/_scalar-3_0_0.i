@@ -41,7 +41,7 @@
 //
 //M*/
 
-/* Copyright (c) 2015 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
+/* Copyright (c) 2015-2106 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
  * top-level directory of this distribution and at
  * https://github.com/renatoGarcia/opencv-swig/blob/master/AUTHORS.
  *
@@ -52,9 +52,34 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%header
-%{
-    #include <opencv2/core/core.hpp>
-%}
+namespace cv
+{
+template<typename _Tp> class Scalar_ : public Vec<_Tp, 4>
+{
+public:
+    //! various constructors
+    Scalar_();
+    Scalar_(_Tp v0, _Tp v1, _Tp v2=0, _Tp v3=0);
+    Scalar_(_Tp v0);
 
-%include <opencv/_range.i>
+    template<typename _Tp2, int cn>
+    Scalar_(const Vec<_Tp2, cn>& v);
+
+    //! returns a scalar with all elements set to v0
+    static Scalar_<_Tp> all(_Tp v0);
+
+    //! conversion to another data type
+    template<typename T2> operator Scalar_<T2>() const;
+
+    //! per-element product
+    Scalar_<_Tp> mul(const Scalar_<_Tp>& a, double scale=1 ) const;
+
+    // returns (v0, -v1, -v2, -v3)
+    Scalar_<_Tp> conj() const;
+
+    // returns true iff v1 == v2 == v3 == 0
+    bool isReal() const;
+};
+
+typedef Scalar_<double> Scalar;
+}

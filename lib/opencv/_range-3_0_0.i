@@ -41,7 +41,7 @@
 //
 //M*/
 
-/* Copyright (c) 2015 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
+/* Copyright (c) 2015-2016 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
  * top-level directory of this distribution and at
  * https://github.com/renatoGarcia/opencv-swig/blob/master/AUTHORS.
  *
@@ -52,9 +52,19 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%header
-%{
-    #include <opencv2/core/core.hpp>
-%}
+%include <opencv/_common.i>
 
-%include <opencv/_range.i>
+namespace cv
+{
+class CV_EXPORTS Range
+{
+public:
+    Range();
+    Range(int _start, int _end);
+    int size() const;
+    bool empty() const;
+    static Range all();
+
+    int start, end;
+};
+}

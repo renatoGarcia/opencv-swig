@@ -52,6 +52,8 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
+#define CV_EXPORTS
+
 namespace cv
 {
 
