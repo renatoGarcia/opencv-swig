@@ -39,6 +39,11 @@ macro(ADD_TEST_RULES name)
     swig_link_libraries(${name} "${OpenCV_LIBRARIES}")
 endmacro(ADD_TEST_RULES)
 
+get_property(_include_directories DIRECTORY PROPERTY INCLUDE_DIRECTORIES)
+foreach(_include_directory IN LISTS _include_directories)
+    list(APPEND CMAKE_SWIG_FLAGS -I${_include_directory})
+endforeach()
+
 add_test_rules(range)
 add_test_rules(scalar)
 add_test_rules(point)
