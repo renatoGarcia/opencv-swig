@@ -56,6 +56,7 @@
 
 namespace cv
 {
+
 class CV_EXPORTS Mat
 {
 public:
@@ -797,11 +798,11 @@ public:
     */
     Mat operator()( const Range* ranges ) const;
 
-    // //! converts header to CvMat; no data is copied
+    //! converts header to CvMat; no data is copied
     // operator CvMat() const;
-    // //! converts header to CvMatND; no data is copied
+    //! converts header to CvMatND; no data is copied
     // operator CvMatND() const;
-    // //! converts header to IplImage; no data is copied
+    //! converts header to IplImage; no data is copied
     // operator IplImage() const;
 
     template<typename _Tp> operator std::vector<_Tp>() const;
@@ -982,25 +983,25 @@ public:
     /** @overload */
     template<int n> const uchar* ptr(const Vec<int, n>& idx) const;
 
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp> _Tp* ptr(int i0=0);
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp> const _Tp* ptr(int i0=0) const;
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp> _Tp* ptr(int i0, int i1);
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp> const _Tp* ptr(int i0, int i1) const;
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp> _Tp* ptr(int i0, int i1, int i2);
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp> const _Tp* ptr(int i0, int i1, int i2) const;
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp> _Tp* ptr(const int* idx);
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp> const _Tp* ptr(const int* idx) const;
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp, int n> _Tp* ptr(const Vec<int, n>& idx);
-    // /** @overload */
+    /** @overload */
     // template<typename _Tp, int n> const _Tp* ptr(const Vec<int, n>& idx) const;
 
     /** @brief Returns a reference to the specified array element.

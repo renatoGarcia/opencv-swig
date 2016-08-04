@@ -54,6 +54,7 @@
 
 namespace cv
 {
+
 template<typename _Tp> class Size_
 {
 public:

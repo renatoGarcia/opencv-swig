@@ -56,6 +56,7 @@
 
 namespace cv
 {
+
 template<typename _Tp> class Point_
 {
 public:

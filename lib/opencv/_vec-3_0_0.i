@@ -56,6 +56,7 @@
 
 namespace cv
 {
+
 template<typename _Tp, int cn> class Vec : public Matx<_Tp, cn, 1>
 {
 public:
@@ -63,7 +64,7 @@ public:
     enum { depth    = Matx<_Tp, cn, 1>::depth,
            channels = cn,
            type     = CV_MAKETYPE(depth, channels)
-    };
+         };
 
     //! default constructor
     // Vec();
@@ -138,20 +139,4 @@ typedef Vec<double, 2> Vec2d;
 typedef Vec<double, 3> Vec3d;
 typedef Vec<double, 4> Vec4d;
 typedef Vec<double, 6> Vec6d;
-
-template<typename _Tp, int cn> class DataType< Vec<_Tp, cn> >
-{
-public:
-    typedef Vec<_Tp, cn>                               value_type;
-    typedef Vec<typename DataType<_Tp>::work_type, cn> work_type;
-    typedef _Tp                                        channel_type;
-    typedef value_type                                 vec_type;
-
-    enum { generic_type = 0,
-           depth        = DataType<channel_type>::depth,
-           channels     = cn,
-           fmt          = DataType<channel_type>::fmt + ((channels - 1) << 8),
-           type         = CV_MAKETYPE(depth, channels)
-    };
-};
 }

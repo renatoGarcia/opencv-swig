@@ -54,6 +54,7 @@
 
 namespace cv
 {
+
 template<typename _Tp> class Scalar_ : public Vec<_Tp, 4>
 {
 public:

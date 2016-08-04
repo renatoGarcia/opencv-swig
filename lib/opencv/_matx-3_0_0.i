@@ -56,6 +56,7 @@
 
 namespace cv
 {
+
 struct CV_EXPORTS Matx_AddOp {};
 struct CV_EXPORTS Matx_SubOp {};
 struct CV_EXPORTS Matx_ScaleOp {};
@@ -67,17 +68,17 @@ struct CV_EXPORTS Matx_TOp {};
 template<typename _Tp, int m, int n> class Matx
 {
 public:
-    enum { depth = DataDepth<_Tp>::value,
-           rows = m,
-           cols = n,
+    enum { depth    = DataType<_Tp>::depth,
+           rows     = m,
+           cols     = n,
            channels = rows*cols,
-           type = CV_MAKETYPE(depth, channels),
+           type     = CV_MAKETYPE(depth, channels),
            // shortdim = (m < n ? m : n)
            shortdim = MinInt<m, n>::vale // SWIG can not handle the original expression.
          };
 
-    typedef _Tp                    value_type;
-    typedef Matx<_Tp, m, n>        mat_type;
+    typedef _Tp                           value_type;
+    typedef Matx<_Tp, m, n>               mat_type;
     typedef Matx<_Tp, shortdim, 1> diag_type;
 
     //! default constructor
@@ -111,19 +112,19 @@ public:
     static Matx randn(_Tp a, _Tp b);
 
     //! dot product computed with the default precision
-    _Tp dot(const cv::Matx<_Tp, m, n>& v) const;
+    _Tp dot(const Matx<_Tp, m, n>& v) const;
 
     //! dot product computed in double-precision arithmetics
-    double ddot(const cv::Matx<_Tp, m, n>& v) const;
+    double ddot(const Matx<_Tp, m, n>& v) const;
 
     //! conversion to another data type
     // template<typename T2> operator Matx<T2, m, n>() const;
 
     //! change the matrix shape
-    template<int m1, int n1> cv::Matx<_Tp, m1, n1> reshape() const;
+    template<int m1, int n1> Matx<_Tp, m1, n1> reshape() const;
 
     //! extract part of the matrix
-    template<int m1, int n1> cv::Matx<_Tp, m1, n1> get_minor(int i, int j) const;
+    template<int m1, int n1> Matx<_Tp, m1, n1> get_minor(int i, int j) const;
 
     //! extract the matrix row
     // Matx<_Tp, 1, n> row(int i) const;
@@ -135,23 +136,23 @@ public:
     // diag_type diag() const;
 
     //! transpose the matrix
-    cv::Matx<_Tp, n, m> t() const;
+    Matx<_Tp, n, m> t() const;
 
     //! invert the matrix
     // Matx<_Tp, n, m> inv(int method=DECOMP_LU, bool *p_is_ok = NULL) const;
 
     //! solve linear system
     // template<int l> Matx<_Tp, n, l> solve(const Matx<_Tp, m, l>& rhs, int flags=DECOMP_LU) const;
-    // cv::Vec<_Tp, n> solve(const cv::Vec<_Tp, m>& rhs, int method) const;
+    // Vec<_Tp, n> solve(const Vec<_Tp, m>& rhs, int method) const;
 
     //! multiply two matrices element-wise
-    cv::Matx<_Tp, m, n> mul(const cv::Matx<_Tp, m, n>& a) const;
+    Matx<_Tp, m, n> mul(const Matx<_Tp, m, n>& a) const;
 
     //! divide two matrices element-wise
     Matx<_Tp, m, n> div(const Matx<_Tp, m, n>& a) const;
 
     //! element access
-    const value_type& operator()(int i, int j) const;
+    const _Tp& operator()(int i, int j) const;
     // _Tp& operator ()(int i, int j);
 
     //! 1D element access

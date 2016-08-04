@@ -56,6 +56,7 @@
 
 namespace cv
 {
+
 class CV_EXPORTS Range
 {
 public:
