@@ -128,7 +128,7 @@ public:
     //  <0 - a diagonal from the upper half)
     Mat diag(int d=0) const;
     //! constructs a square diagonal matrix which main diagonal is vector "d"
-    static Mat diag(const Mat& d);
+    // static Mat diag(const Mat& d);
 
     //! returns deep copy of the matrix, i.e. the data is copied
     Mat clone() const;
