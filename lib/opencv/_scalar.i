@@ -19,9 +19,9 @@
     %include <opencv/_scalar-3_0_0.i>
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 0
     %include <opencv/_scalar-3_0_0.i>
-#elif CV_MAJOR_VERSION == 2 && CV_MINOR_VERSION == 4 && CV_SUBMINOR_VERSION >= 12
-    %include <opencv/_scalar-2_4_12.i>
+#elif CV_MAJOR_VERSION == 2 && CV_MINOR_VERSION == 4 && CV_SUBMINOR_VERSION >= 11
+    %include <opencv/_scalar-2_4_11.i>
 #else
     // This OpenCV version was not tested
-    %include <opencv/_scalar-2_4_12.i>
+    %include <opencv/_scalar-2_4_11.i>
 #endif
