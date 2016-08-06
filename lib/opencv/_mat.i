@@ -11,17 +11,19 @@
 
 %include <opencv2/core/version.hpp>
 
-#if CV_VERSION_MAJOR > 3
+#if CV_MAJOR_VERSION > 3
     // This OpenCV version was not tested
     %include <opencv/_mat-3_1_0.i>
-#elif CV_VERSION_MAJOR == 3 && CV_VERSION_MINOR > 1
+#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 1
     // This OpenCV version was not tested
     %include <opencv/_mat-3_1_0.i>
-#elif CV_VERSION_MAJOR == 3 && CV_VERSION_MINOR == 1
+#elif CV_MAJOR_VERSION == 3 && CV_VERSION_MINOR == 1
     %include <opencv/_mat-3_1_0.i>
-#elif CV_VERSION_MAJOR == 3 && CV_VERSION_MINOR == 0
+#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION == 0
     %include <opencv/_mat-3_0_0.i>
+#elif CV_MAJOR_VERSION == 2 && CV_MINOR_VERSION == 4 && CV_SUBMINOR_VERSION >= 13
+    %include <opencv/_mat-2_4_13.i>
 #else
     // This OpenCV version was not tested
-    %include <opencv/_mat-3_0_0.i>
+    %include <opencv/_mat-2_4_13.i>
 #endif

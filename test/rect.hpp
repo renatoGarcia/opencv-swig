@@ -28,12 +28,12 @@ void receive_Rect(cv::Rect r)
 }
 
 //-------------------------------------------------- Rect2i
-cv::Rect2i return_Rect2i()
+cv::Rect_<int> return_Rect2i()
 {
-    return cv::Rect2i(20, 183, 191, 148);
+    return cv::Rect_<int>(20, 183, 191, 148);
 }
 
-void receive_Rect2i(cv::Rect2i r)
+void receive_Rect2i(cv::Rect_<int> r)
 {
     const int t[4] = {156, 146, 132, 10};
     cmp(r, t);
@@ -41,12 +41,12 @@ void receive_Rect2i(cv::Rect2i r)
 
 
 //-------------------------------------------------- Rect2d
-cv::Rect2d return_Rect2d()
+cv::Rect_<double> return_Rect2d()
 {
-    return cv::Rect2d(0.988, 0.837, 0.419, 0.672);
+    return cv::Rect_<double>(0.988, 0.837, 0.419, 0.672);
 }
 
-void receive_Rect2d(cv::Rect2d r)
+void receive_Rect2d(cv::Rect_<double> r)
 {
     const double t[4] = {0.077, 0.972, 0.865, 0.203};
     cmp(r, t);
@@ -54,12 +54,12 @@ void receive_Rect2d(cv::Rect2d r)
 
 
 //-------------------------------------------------- Rect2f
-cv::Rect2f return_Rect2f()
+cv::Rect_<float> return_Rect2f()
 {
-    return cv::Rect2f(0.357f, 0.460f, 0.384f, 0.103f);
+    return cv::Rect_<float>(0.357f, 0.460f, 0.384f, 0.103f);
 }
 
-void receive_Rect2f(cv::Rect2f r)
+void receive_Rect2f(cv::Rect_<float> r)
 {
     const float t[4] = {0.488f, 0.797f, 0.436f, 0.618f};
     cmp(r, t);
