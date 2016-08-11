@@ -7,12 +7,11 @@
 //  copy or use the software.
 //
 //
-//                          License Agreement
+//                           License Agreement
 //                For Open Source Computer Vision Library
 //
 // Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
-// Copyright (C) 2009, Willow Garage Inc., all rights reserved.
-// Copyright (C) 2013, OpenCV Foundation, all rights reserved.
+// Copyright (C) 2009-2011, Willow Garage Inc., all rights reserved.
 // Third party copyrights are property of their respective owners.
 //
 // Redistribution and use in source and binary forms, with or without modification,
@@ -41,7 +40,7 @@
 //
 //M*/
 
-/* Copyright (c) 2015 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
+/* Copyright (c) 2015-2016 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
  * top-level directory of this distribution and at
  * https://github.com/renatoGarcia/opencv-swig/blob/master/AUTHORS.
  *
@@ -52,9 +51,48 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%header
-%{
-    #include <opencv2/core/core.hpp>
-%}
+%include <opencv/detail/common.i>
 
-%include <opencv/detail/range.i>
+namespace cv
+{
+
+template<typename _Tp> class Point_
+{
+public:
+    typedef _Tp value_type;
+
+    // various constructors
+    Point_();
+    Point_(_Tp _x, _Tp _y);
+    // Point_(const Point_& pt);
+    // Point_(const CvPoint& pt);
+    // Point_(const CvPoint2D32f& pt);
+    // Point_(const Size_<_Tp>& sz);
+    Point_(const Vec<_Tp, 2>& v);
+
+    // Point_& operator = (const Point_& pt);
+    //! conversion to another data type
+    // template<typename _Tp2> operator Point_<_Tp2>() const;
+
+    //! conversion to the old-style C structures
+    // operator CvPoint() const;
+    // operator CvPoint2D32f() const;
+    // operator Vec<_Tp, 2>() const;
+
+    //! dot product
+    _Tp dot(const Point_& pt) const;
+    //! dot product computed in double-precision arithmetics
+    double ddot(const Point_& pt) const;
+    //! cross-product
+    double cross(const Point_& pt) const;
+    //! checks whether the point is inside the specified rectangle
+    // bool inside(const Rect_<_Tp>& r) const;
+
+    _Tp x, y; //< the point coordinates
+};
+
+typedef Point_<int> Point2i;
+typedef Point2i Point;
+typedef Point_<float> Point2f;
+typedef Point_<double> Point2d;
+}

@@ -13,15 +13,17 @@
 
 #if CV_MAJOR_VERSION > 3
     // This OpenCV version was not tested
-    %include <opencv/_range-3_0_0.i>
+    %include <opencv/detail/mat-3_1_0.i>
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 1
     // This OpenCV version was not tested
-    %include <opencv/_range-3_0_0.i>
-#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 0
-    %include <opencv/_range-3_0_0.i>
+    %include <opencv/detail/mat-3_1_0.i>
+#elif CV_MAJOR_VERSION == 3 && CV_VERSION_MINOR == 1
+    %include <opencv/detail/mat-3_1_0.i>
+#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION == 0
+    %include <opencv/detail/mat-3_0_0.i>
 #elif CV_MAJOR_VERSION == 2 && CV_MINOR_VERSION == 4 && CV_SUBMINOR_VERSION >= 11
-    %include <opencv/_range-2_4_11.i>
+    %include <opencv/detail/mat-2_4_11.i>
 #else
     // This OpenCV version was not tested
-    %include <opencv/_range-2_4_11.i>
+    %include <opencv/detail/mat-2_4_11.i>
 #endif

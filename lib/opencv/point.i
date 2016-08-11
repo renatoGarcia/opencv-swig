@@ -13,7 +13,7 @@
 
 %include <std_string.i>
 
-%include <opencv/_point.i>
+%include <opencv/detail/point.i>
 
 %define %cv_point_instantiate(type, type_alias)
     #if !_CV_POINT_##type##_INSTANTIATED_

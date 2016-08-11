@@ -45,7 +45,7 @@
     #include <sstream>
 %}
 
-%include <opencv/_scalar.i>
+%include <opencv/detail/scalar.i>
 
 %extend cv::Scalar_
 {

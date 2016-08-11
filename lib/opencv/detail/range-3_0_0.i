@@ -7,11 +7,12 @@
 //  copy or use the software.
 //
 //
-//                           License Agreement
+//                          License Agreement
 //                For Open Source Computer Vision Library
 //
 // Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
-// Copyright (C) 2009-2011, Willow Garage Inc., all rights reserved.
+// Copyright (C) 2009, Willow Garage Inc., all rights reserved.
+// Copyright (C) 2013, OpenCV Foundation, all rights reserved.
 // Third party copyrights are property of their respective owners.
 //
 // Redistribution and use in source and binary forms, with or without modification,
@@ -51,48 +52,20 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%include <opencv/_common.i>
+%include <opencv/detail/common.i>
 
 namespace cv
 {
 
-template<typename _Tp> class Point_
+class CV_EXPORTS Range
 {
 public:
-    typedef _Tp value_type;
+    Range();
+    Range(int _start, int _end);
+    int size() const;
+    bool empty() const;
+    static Range all();
 
-    // various constructors
-    Point_();
-    Point_(_Tp _x, _Tp _y);
-    // Point_(const Point_& pt);
-    // Point_(const CvPoint& pt);
-    // Point_(const CvPoint2D32f& pt);
-    // Point_(const Size_<_Tp>& sz);
-    Point_(const Vec<_Tp, 2>& v);
-
-    // Point_& operator = (const Point_& pt);
-    //! conversion to another data type
-    // template<typename _Tp2> operator Point_<_Tp2>() const;
-
-    //! conversion to the old-style C structures
-    // operator CvPoint() const;
-    // operator CvPoint2D32f() const;
-    // operator Vec<_Tp, 2>() const;
-
-    //! dot product
-    _Tp dot(const Point_& pt) const;
-    //! dot product computed in double-precision arithmetics
-    double ddot(const Point_& pt) const;
-    //! cross-product
-    double cross(const Point_& pt) const;
-    //! checks whether the point is inside the specified rectangle
-    // bool inside(const Rect_<_Tp>& r) const;
-
-    _Tp x, y; //< the point coordinates
+    int start, end;
 };
-
-typedef Point_<int> Point2i;
-typedef Point2i Point;
-typedef Point_<float> Point2f;
-typedef Point_<double> Point2d;
 }

@@ -51,7 +51,7 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%include <opencv/_common.i>
+%include <opencv/detail/common.i>
 
 namespace cv
 {

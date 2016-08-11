@@ -12,7 +12,7 @@
 %include <stdint.i>
 %include <opencv/matx.i>
 
-%include <opencv/_vec.i>
+%include <opencv/detail/vec.i>
 
 /* %cv_vec_instantiate(type, d1, type_alias, np_basic_type)
  *

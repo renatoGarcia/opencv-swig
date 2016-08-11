@@ -52,91 +52,44 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%include <opencv/_common.i>
+%include <opencv/detail/common.i>
 
 namespace cv
 {
-template<typename _Tp, int cn> class Vec : public Matx<_Tp, cn, 1>
+
+template<typename _Tp> class Point_
 {
 public:
     typedef _Tp value_type;
-    enum { depth    = Matx<_Tp, cn, 1>::depth,
-           channels = cn,
-           type     = CV_MAKETYPE(depth, channels)
-         };
 
-    //! default constructor
-    // Vec();
+    // various constructors
+    Point_();
+    Point_(_Tp _x, _Tp _y);
+    // Point_(const Point_& pt);
+    // Point_(const Size_<_Tp>& sz);
+    Point_(const Vec<_Tp, 2>& v);
 
-    // Vec(_Tp v0); //!< 1-element vector constructor
-    // Vec(_Tp v0, _Tp v1); //!< 2-element vector constructor
-    // Vec(_Tp v0, _Tp v1, _Tp v2); //!< 3-element vector constructor
-    // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3); //!< 4-element vector constructor
-    // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4); //!< 5-element vector constructor
-    // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5); //!< 6-element vector constructor
-    // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6); //!< 7-element vector constructor
-    // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7); //!< 8-element vector constructor
-    // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7, _Tp v8); //!< 9-element vector constructor
-    // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7, _Tp v8, _Tp v9); //!< 10-element vector constructor
-    // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7, _Tp v8, _Tp v9, _Tp v10, _Tp v11, _Tp v12, _Tp v13); //!< 14-element vector constructor
-    explicit Vec(const _Tp* values);
-
-    Vec(const Vec<_Tp, cn>& v);
-
-    static Vec all(_Tp alpha);
-
-    //! per-element multiplication
-    Vec mul(const Vec<_Tp, cn>& v) const;
-
-    //! conjugation (makes sense for complex numbers and quaternions)
-    // Vec conj() const;
-
-    /*!
-      cross product of the two 3D vectors.
-
-      For other dimensionalities the exception is raised
-    */
-    // Vec cross(const Vec& v) const;
+    // Point_& operator = (const Point_& pt);
     //! conversion to another data type
-    template<typename T2> operator Vec<T2, cn>() const;
+    // template<typename _Tp2> operator Point_<_Tp2>() const;
 
-    /*! element access */
-    // const _Tp& operator [](int i) const;
-    // _Tp& operator[](int i);
-    const _Tp& operator ()(int i) const;
-    // _Tp& operator ()(int i);
+    //! conversion to the old-style C structures
+    // operator Vec<_Tp, 2>() const;
 
-    Vec(const Matx<_Tp, cn, 1>& a, const Matx<_Tp, cn, 1>& b, Matx_AddOp);
-    Vec(const Matx<_Tp, cn, 1>& a, const Matx<_Tp, cn, 1>& b, Matx_SubOp);
-    template<typename _T2> Vec(const Matx<_Tp, cn, 1>& a, _T2 alpha, Matx_ScaleOp);
+    //! dot product
+    _Tp dot(const Point_& pt) const;
+    //! dot product computed in double-precision arithmetics
+    double ddot(const Point_& pt) const;
+    //! cross-product
+    double cross(const Point_& pt) const;
+    //! checks whether the point is inside the specified rectangle
+    // bool inside(const Rect_<_Tp>& r) const;
+
+    _Tp x, y; //< the point coordinates
 };
 
-// Changed uchar to uint8_t
-typedef Vec<uint8_t, 2> Vec2b;
-typedef Vec<uint8_t, 3> Vec3b;
-typedef Vec<uint8_t, 4> Vec4b;
-
-typedef Vec<short, 2> Vec2s;
-typedef Vec<short, 3> Vec3s;
-typedef Vec<short, 4> Vec4s;
-
-typedef Vec<ushort, 2> Vec2w;
-typedef Vec<ushort, 3> Vec3w;
-typedef Vec<ushort, 4> Vec4w;
-
-typedef Vec<int, 2> Vec2i;
-typedef Vec<int, 3> Vec3i;
-typedef Vec<int, 4> Vec4i;
-typedef Vec<int, 6> Vec6i;
-typedef Vec<int, 8> Vec8i;
-
-typedef Vec<float, 2> Vec2f;
-typedef Vec<float, 3> Vec3f;
-typedef Vec<float, 4> Vec4f;
-typedef Vec<float, 6> Vec6f;
-
-typedef Vec<double, 2> Vec2d;
-typedef Vec<double, 3> Vec3d;
-typedef Vec<double, 4> Vec4d;
-typedef Vec<double, 6> Vec6d;
+typedef Point_<int> Point2i;
+typedef Point_<float> Point2f;
+typedef Point_<double> Point2d;
+typedef Point2i Point;
 }

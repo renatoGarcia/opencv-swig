@@ -28,7 +28,7 @@
     #include <sstream>
 %}
 
-%include <opencv/_size.i>
+%include <opencv/detail/size.i>
 
 %extend cv::Size_
 {

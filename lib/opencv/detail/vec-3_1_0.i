@@ -52,11 +52,10 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%include <opencv/_common.i>
+%include <opencv/detail/common.i>
 
 namespace cv
 {
-
 template<typename _Tp, int cn> class Vec : public Matx<_Tp, cn, 1>
 {
 public:
@@ -79,6 +78,7 @@ public:
     // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7); //!< 8-element vector constructor
     // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7, _Tp v8); //!< 9-element vector constructor
     // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7, _Tp v8, _Tp v9); //!< 10-element vector constructor
+    // Vec(_Tp v0, _Tp v1, _Tp v2, _Tp v3, _Tp v4, _Tp v5, _Tp v6, _Tp v7, _Tp v8, _Tp v9, _Tp v10, _Tp v11, _Tp v12, _Tp v13); //!< 14-element vector constructor
     explicit Vec(const _Tp* values);
 
     Vec(const Vec<_Tp, cn>& v);

@@ -29,7 +29,7 @@
     #include <sstream>
 %}
 
-%include <opencv/_rect.i>
+%include <opencv/detail/rect.i>
 
 %extend cv::Rect_
 {

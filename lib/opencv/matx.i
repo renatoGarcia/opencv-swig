@@ -9,7 +9,7 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%include <opencv/_numpy.i>
+%include <opencv/detail/numpy.i>
 
 %include <std_string.i>
 %include <std_vector.i>
@@ -19,7 +19,7 @@
     _array_map = {}
 }
 
-%include <opencv/_matx.i>
+%include <opencv/detail/matx.i>
 
 /* %cv_matx_instantiate(type, d1, d2, type_alias, np_basic_type)
  *

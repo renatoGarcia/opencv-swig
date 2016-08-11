@@ -9,7 +9,7 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%include <opencv/_numpy.i>
+%include <opencv/detail/numpy.i>
 %include <opencv/range.i>
 %include <opencv/rect.i>
 %include <opencv/scalar.i>
@@ -24,7 +24,7 @@ namespace cv
     %ignore Mat::Mat(const Mat&, const Range*);
 }
 
-%include <opencv/_mat.i>
+%include <opencv/detail/mat.i>
 
 %cv_vec_instantiate_defaults
 

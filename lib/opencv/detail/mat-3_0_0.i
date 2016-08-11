@@ -52,10 +52,11 @@
  * distributed except according to the terms contained in the LICENSE file.
  */
 
-%include <opencv/_common.i>
+%include <opencv/detail/common.i>
 
 namespace cv
 {
+
 class CV_EXPORTS Mat
 {
 public:
@@ -399,7 +400,6 @@ public:
     @param m Destination matrix. If it does not have a proper size or type before the operation, it is
     reallocated.
     @param mask Operation mask. Its non-zero elements indicate which matrix elements need to be copied.
-    The mask has to be of type CV_8U and can have 1 or multiple channels.
     */
     // void copyTo( OutputArray m, InputArray mask ) const;
 
@@ -798,11 +798,11 @@ public:
     */
     Mat operator()( const Range* ranges ) const;
 
-    // //! converts header to CvMat; no data is copied
+    //! converts header to CvMat; no data is copied
     // operator CvMat() const;
-    // //! converts header to CvMatND; no data is copied
+    //! converts header to CvMatND; no data is copied
     // operator CvMatND() const;
-    // //! converts header to IplImage; no data is copied
+    //! converts header to IplImage; no data is copied
     // operator IplImage() const;
 
     template<typename _Tp> operator std::vector<_Tp>() const;
@@ -1126,7 +1126,7 @@ public:
 
     /** @brief Invoke with arguments functor, and runs the functor over all matrix element.
 
-    The methods runs operation in parallel. Operation is passed by arguments. Operation have to be a
+    The methos runs operation in parallel. Operation is passed by arguments. Operation have to be a
     function pointer, a function object or a lambda(C++11).
 
     All of below operation is equal. Put 0xFF to first channel of all matrix elements:
@@ -1183,11 +1183,6 @@ public:
     /** @overload */
     template<typename _Tp, typename Functor> void forEach(const Functor& operation) const;
 
-// #ifdef CV_CXX_MOVE_SEMANTICS
-//     Mat(Mat&& m);
-//     Mat& operator = (Mat&& m);
-// #endif
-
     enum { MAGIC_VAL  = 0x42FF0000, AUTO_STEP = 0, CONTINUOUS_FLAG = CV_MAT_CONT_FLAG, SUBMATRIX_FLAG = CV_SUBMAT_FLAG };
     enum { MAGIC_MASK = 0xFFFF0000, TYPE_MASK = 0x00000FFF, DEPTH_MASK = 7 };
 
@@ -1214,8 +1209,6 @@ public:
     // MatAllocator* allocator;
     //! and the standard allocator
     // static MatAllocator* getStdAllocator();
-    // static MatAllocator* getDefaultAllocator();
-    // static void setDefaultAllocator(MatAllocator* allocator);
 
     //! interaction with UMat
     // UMatData* u;
@@ -1369,16 +1362,6 @@ public:
     template<int n> operator Vec<typename DataType<_Tp>::channel_type, n>() const;
     //! conversion to Matx
     template<int m, int n> operator Matx<typename DataType<_Tp>::channel_type, m, n>() const;
-
-// #ifdef CV_CXX_MOVE_SEMANTICS
-//     Mat_(Mat_&& m);
-//     Mat_& operator = (Mat_&& m);
-
-//     Mat_(Mat&& m);
-//     Mat_& operator = (Mat&& m);
-
-//     Mat_(MatExpr&& e);
-// #endif
 };
 
 typedef Mat_<uchar> Mat1b;
