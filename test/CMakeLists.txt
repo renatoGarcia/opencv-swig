@@ -4,7 +4,16 @@ find_package(SWIG REQUIRED)
 set(CMAKE_SWIG_FLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/../lib/")
 include(${SWIG_USE_FILE})
 
-find_package(PythonLibs 3)
+set(TEST_PYTHON_VERSION "3"
+    CACHE STRING "Python version used on tests.")
+set_property(CACHE TEST_PYTHON_VERSION PROPERTY STRINGS "3" "2")
+
+if(TEST_PYTHON_VERSION EQUAL 2)
+    find_package(PythonLibs 2)
+else()
+    find_package(PythonLibs 3)
+endif()
+
 find_package(OpenCV REQUIRED opencv_core)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}

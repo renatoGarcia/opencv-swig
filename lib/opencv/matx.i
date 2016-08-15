@@ -156,7 +156,7 @@
     %pythoncode
      {
          import re
-         _re_pattern = re.compile("_Matx_(?P<value_type>[a-zA-Z_][a-zA-Z0-9_]*)_(?P<rows>[0-9]+)_(?P<cols>[0-9]+)")
+         _re_pattern = re.compile("^_Matx_(?P<value_type>[a-zA-Z_][a-zA-Z0-9_]*)_(?P<rows>[0-9]+)_(?P<cols>[0-9]+)$")
      }
 
     Matx(std::vector<value_type> arg)
@@ -166,7 +166,7 @@
 
     %pythonprepend Matx(std::vector<value_type> arg)
     {
-        ma = self._re_pattern.fullmatch(self.__class__.__name__)
+        ma = self._re_pattern.match(self.__class__.__name__)
         value_type = ma.group("value_type")
         rows = int(ma.group("rows"))
         cols = int(ma.group("cols"))
@@ -182,7 +182,7 @@
     {
         def __getattribute__(self, name):
             if name == "__array_interface__":
-                ma = self._re_pattern.fullmatch(self.__class__.__name__)
+                ma = self._re_pattern.match(self.__class__.__name__)
                 value_type = ma.group("value_type")
                 rows = int(ma.group("rows"))
                 cols = int(ma.group("cols"))
@@ -194,7 +194,7 @@
 
 
         def __getitem__(self, key):
-            ma = self._re_pattern.fullmatch(self.__class__.__name__)
+            ma = self._re_pattern.match(self.__class__.__name__)
             rows = int(ma.group("rows"))
             cols = int(ma.group("cols"))
 

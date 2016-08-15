@@ -50,7 +50,7 @@
     %pythoncode
      {
          import re
-         _re_pattern = re.compile("_Vec_(?P<value_type>[a-zA-Z_][a-zA-Z0-9_]*)_(?P<rows>[0-9]+)")
+         _re_pattern = re.compile("^_Vec_(?P<value_type>[a-zA-Z_][a-zA-Z0-9_]*)_(?P<rows>[0-9]+)$")
      }
 
     Vec(std::vector<value_type> arg)
@@ -60,7 +60,7 @@
 
     %pythonprepend Vec(std::vector<value_type> arg)
     {
-        ma = self._re_pattern.fullmatch(self.__class__.__name__)
+        ma = self._re_pattern.match(self.__class__.__name__)
         value_type = ma.group("value_type")
         rows = int(ma.group("rows"))
 
@@ -75,7 +75,7 @@
     {
         def __getattribute__(self, name):
             if name == "__array_interface__":
-                ma = self._re_pattern.fullmatch(self.__class__.__name__)
+                ma = self._re_pattern.match(self.__class__.__name__)
                 value_type = ma.group("value_type")
                 rows = int(ma.group("rows"))
                 return {"shape": (rows, 1),
@@ -85,7 +85,7 @@
                 return object.__getattribute__(self, name)
 
         def __getitem__(self, key):
-            ma = self._re_pattern.fullmatch(self.__class__.__name__)
+            ma = self._re_pattern.match(self.__class__.__name__)
             rows = int(ma.group("rows"))
 
             if not isinstance(key, int):
