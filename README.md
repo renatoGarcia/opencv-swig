@@ -8,6 +8,9 @@ This library is a collection of SWIG interface files with rules to wrap OpenCV t
 Python classes. The OpenCV itself has a Python binding exposing its API, this library is
 not that.
 
+This code has been tested with OpenCV versions from 2.4.11 through 3.1.0, and with Python
+2.7 and 3.5.
+
 Hello, world!
 -------------
 
@@ -88,6 +91,33 @@ Python modules. Another option is move the `lib` directory to another path, say
 
 ```
 swig -I/home/bla/swig_libs -c++ -python my_lib.i
+```
+
+Testing
+-------
+
+To build and run the tests, make a new directory inside test and change to it:
+
+```shell
+cd test
+mkdir build
+cd build
+```
+
+Inside the new created directory, to test using Python 3:
+
+```shell
+cmake ..
+make
+py.test ..
+```
+
+To test using Python 2:
+
+```shell
+cmake -DTEST_PYTHON_VERSION=2 ..
+make
+py.test ..
 ```
 
 License
