@@ -64,7 +64,7 @@ In a Linux system the `my_lib_wrap.cxx` can be compiled to a `_my_lib.so` (as ex
 the Python interpreter) with the command:
 
 ```shell
-g++ -shared -fpic my_lib_wrap.cxx $(pkg-config --cflags python3) $(pkg-config --libs opencv) -o _my_lib.so
+g++ -shared -fpic my_lib_wrap.cxx $(pkg-config --cflags --libs python3) $(pkg-config --libs opencv) -o _my_lib.so
 ```
 
 That will create a Python module `my_lib` on the current directory, and the code bellow will

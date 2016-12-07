@@ -45,7 +45,7 @@ macro(ADD_TEST_RULES name)
     set(SWIG_MODULE_${name}_EXTRA_DEPS ${${name}_DEPENDENCIES})
     set_source_files_properties(${name}.i PROPERTIES CPLUSPLUS ON)
     swig_add_module(${name} python ${name}.i ${name}.hpp)
-    swig_link_libraries(${name} "${OpenCV_LIBRARIES}")
+    swig_link_libraries(${name} "${OpenCV_LIBRARIES}" ${PYTHON_LIBRARIES})
 endmacro(ADD_TEST_RULES)
 
 get_property(_include_directories DIRECTORY PROPERTY INCLUDE_DIRECTORIES)
