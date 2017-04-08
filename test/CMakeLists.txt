@@ -15,10 +15,12 @@ else()
 endif()
 
 find_package(OpenCV REQUIRED opencv_core)
+find_package(Boost COMPONENTS program_options REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}
     ${OpenCV_INCLUDE_DIRS}
-    ${PYTHON_INCLUDE_DIRS})
+    ${PYTHON_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIR})
 
 enable_testing()
 
@@ -45,7 +47,7 @@ macro(ADD_TEST_RULES name)
     set(SWIG_MODULE_${name}_EXTRA_DEPS ${${name}_DEPENDENCIES})
     set_source_files_properties(${name}.i PROPERTIES CPLUSPLUS ON)
     swig_add_module(${name} python ${name}.i ${name}.hpp)
-    swig_link_libraries(${name} "${OpenCV_LIBRARIES}" ${PYTHON_LIBRARIES})
+    swig_link_libraries(${name} "${OpenCV_LIBRARIES}" ${PYTHON_LIBRARIES} ${Boost_LIBRARIES})
 endmacro(ADD_TEST_RULES)
 
 get_property(_include_directories DIRECTORY PROPERTY INCLUDE_DIRECTORIES)
