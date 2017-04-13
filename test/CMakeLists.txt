@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.0)
 
 find_package(SWIG REQUIRED)
 set(CMAKE_SWIG_FLAGS "-I${CMAKE_CURRENT_SOURCE_DIR}/../lib/")
@@ -15,10 +15,12 @@ else()
 endif()
 
 find_package(OpenCV REQUIRED opencv_core)
+find_package(Boost)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}
     ${OpenCV_INCLUDE_DIRS}
-    ${PYTHON_INCLUDE_DIRS})
+    ${PYTHON_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIR})
 
 enable_testing()
 
