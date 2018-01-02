@@ -1,4 +1,4 @@
-/* Copyright (c) 2015-2016 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
+/* Copyright (c) 2015-2018 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
  * top-level directory of this distribution and at
  * https://github.com/renatoGarcia/opencv-swig/blob/master/AUTHORS.
  *
@@ -12,16 +12,16 @@
 %include <opencv2/core/version.hpp>
 
 #if CV_MAJOR_VERSION > 3
-    // This OpenCV version was not tested
+    %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/point-3_0_0.i>
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 4
-    // This OpenCV version was not tested
+    %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/point-3_0_0.i>
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 0
     %include <opencv/detail/point-3_0_0.i>
 #elif CV_MAJOR_VERSION == 2 && CV_MINOR_VERSION == 4 && CV_SUBMINOR_VERSION >= 11
     %include <opencv/detail/point-2_4_11.i>
 #else
-    // This OpenCV version was not tested
+    %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/point-2_4_11.i>
 #endif
