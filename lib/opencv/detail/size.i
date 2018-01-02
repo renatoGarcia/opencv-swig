@@ -14,7 +14,7 @@
 #if CV_MAJOR_VERSION > 3
     // This OpenCV version was not tested
     %include <opencv/detail/size-3_0_0.i>
-#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 1
+#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 4
     // This OpenCV version was not tested
     %include <opencv/detail/size-3_0_0.i>
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 0

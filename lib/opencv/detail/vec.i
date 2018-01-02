@@ -12,11 +12,13 @@
 %include <opencv2/core/version.hpp>
 
 #if CV_MAJOR_VERSION > 3
-    %include <opencv/detail/vec-3_3_1.i>
-#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 3
-    %include <opencv/detail/vec-3_3_1.i>
-#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION == 3 && CV_SUBMINOR_VERSION > 0
-    %include <opencv/detail/vec-3_3_1.i>
+    // This OpenCV version was not tested
+    %include <opencv/detail/vec-3_2_0.i>
+#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 4
+    // This OpenCV version was not tested
+    %include <opencv/detail/vec-3_2_0.i>
+#elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 2
+    %include <opencv/detail/vec-3_2_0.i>
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION == 1
     %include <opencv/detail/vec-3_1_0.i>
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION == 0
