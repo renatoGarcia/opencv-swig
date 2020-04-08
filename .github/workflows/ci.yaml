@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [3.3, 3.4]
+        version: ["3.3", "3.4", "4.0"]
     steps:
       - uses: actions/checkout@v2
       - name: run

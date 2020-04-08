@@ -1,6 +1,7 @@
 {opencv-version}:
 let
   overlay = self: super: {
+
     opencv_3_3 = (super.opencv3.override {
       enableContrib = false;
       enableCuda = false;
@@ -21,6 +22,25 @@ let
       preConfigure = oldAttrs.preConfigure + "export CXXFLAGS=-fpermissive";
     });
 
+    opencv_4_0 = (super.opencv4.override {
+      enableJPEG = false;
+      enablePNG = false;
+      enableWebP = false;
+      enableEigen = false;
+      enableOpenblas = false;
+      enableContrib = false;
+      enableCuda = false;
+    }).overrideAttrs (oldAttrs: {
+      version = "4.0.1";
+      src = super.fetchFromGitHub {
+        owner  = "opencv";
+        repo   = "opencv";
+        rev    = "4.0.1";
+        sha256 = "1f0n2a57sn47w55vaxlwhr3g6xgchvr3gxicxbkyzai3pvj55k48";
+      };
+    });
+
+
     python3 = super.python3.override {
       packageOverrides = py-self: py-super: {
 
@@ -30,6 +50,11 @@ let
         });
 
         opencv_3_4 = py-super.opencv3;
+
+        opencv_4_0 = py-super.toPythonModule (self.opencv_4_0.override {
+          enablePython = true;
+          pythonPackages = py-self;
+        });
 
         opencv_4_1 = py-super.opencv4;
       };
@@ -41,8 +66,9 @@ let
         pytest
         (if opencv-version == "3.3" then opencv_3_3
          else if opencv-version == "3.4" then opencv_3_4
+         else if opencv-version == "4.0" then opencv_4_0
          else if opencv-version == "4.1" then opencv_4_1
-         else abort "opencv-version should be one of [3.3, 3.4, 4.1]")
+         else abort "opencv-version should be one of [3.3, 3.4, 4.0, 4.1]")
       ]);
   };
 

@@ -11,17 +11,29 @@
 
 %include <opencv2/core/version.hpp>
 
-#if CV_MAJOR_VERSION > 3
+#if CV_MAJOR_VERSION > 4
     %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/scalar-3_0_0.i>
+
+#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION > 0
+    %warn "900:Using an unsupported OpenCV version."
+    %include <opencv/detail/scalar-3_0_0.i>
+
+#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION == 0
+    %include <opencv/detail/scalar-3_0_0.i>
+
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 4
     %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/scalar-3_0_0.i>
+
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 0
     %include <opencv/detail/scalar-3_0_0.i>
+
 #elif CV_MAJOR_VERSION == 2 && CV_MINOR_VERSION == 4 && CV_SUBMINOR_VERSION >= 11
     %include <opencv/detail/scalar-2_4_11.i>
+
 #else
     %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/scalar-2_4_11.i>
+
 #endif
