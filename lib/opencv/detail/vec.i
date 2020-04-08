@@ -15,11 +15,11 @@
     %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/vec-3_2_0.i>
 
-#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION > 0
+#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION > 1
     %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/vec-3_2_0.i>
 
-#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION == 0
+#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION >= 0
     %include <opencv/detail/vec-3_2_0.i>
 
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 4
