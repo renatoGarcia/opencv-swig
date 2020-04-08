@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
+/* Copyright (c) 2015-2020 The OpenCV-SWIG Library Developers. See the AUTHORS file at the
  * top-level directory of this distribution and at
  * https://github.com/renatoGarcia/opencv-swig/blob/master/AUTHORS.
  *
