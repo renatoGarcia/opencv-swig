@@ -12,18 +12,18 @@
 %include <opencv2/core/version.hpp>
 
 #if CV_MAJOR_VERSION > 4
-    %warn "900:Using an unsupported OpenCV version."
+    %warn "972:Using an untested OpenCV version."
     %include <opencv/detail/vec-3_2_0.i>
 
 #elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION > 3
-    %warn "900:Using an unsupported OpenCV version."
+    %warn "972:Using an untested OpenCV version."
     %include <opencv/detail/vec-3_2_0.i>
 
 #elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION >= 0
     %include <opencv/detail/vec-3_2_0.i>
 
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION > 4
-    %warn "900:Using an unsupported OpenCV version."
+    %warn "972:Using an untested OpenCV version."
     %include <opencv/detail/vec-3_2_0.i>
 
 #elif CV_MAJOR_VERSION == 3 && CV_MINOR_VERSION >= 2
@@ -39,7 +39,7 @@
     %include <opencv/detail/vec-2_4_11.i>
 
 #else
-    %warn "900:Using an unsupported OpenCV version."
+    %warn "972:Using an unsupported OpenCV version."
     %include <opencv/detail/vec-2_4_11.i>
 
 #endif
