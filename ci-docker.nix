@@ -60,6 +60,26 @@ let
       cmakeFlags = oldAttrs.cmakeFlags ++ ["-DBUILD_opencv_imgcodecs=OFF"];
     });
 
+    opencv_4_3 = (super.opencv4.override {
+      enableJPEG = false;
+      enablePNG = false;
+      enableWebP = false;
+      enableEigen = false;
+      enableOpenblas = false;
+      enableContrib = false;
+      enableCuda = false;
+    }).overrideAttrs (oldAttrs: {
+      version = "4.3.0";
+      src = super.fetchFromGitHub {
+        owner  = "opencv";
+        repo   = "opencv";
+        rev    = "4.3.0";
+        sha256 = "1r9bq9p1x99g2y8jvj9428sgqvljz75dm5vrfsma7hh5wjhz9775";
+      };
+
+      cmakeFlags = oldAttrs.cmakeFlags ++ ["-DBUILD_opencv_imgcodecs=OFF"];
+    });
+
 
     python3 = super.python3.override {
       packageOverrides = py-self: py-super: {
@@ -83,6 +103,11 @@ let
           pythonPackages = py-self;
         });
 
+        opencv_4_3 = py-super.toPythonModule (self.opencv_4_3.override {
+          enablePython = true;
+          pythonPackages = py-self;
+        });
+
       };
     };
 
@@ -95,7 +120,8 @@ let
          else if opencv-version == "4.0" then opencv_4_0
          else if opencv-version == "4.1" then opencv_4_1
          else if opencv-version == "4.2" then opencv_4_2
-         else abort "opencv-version should be one of [3.3, 3.4, 4.0, 4.1, 4.2]")
+         else if opencv-version == "4.3" then opencv_4_3
+         else abort "opencv-version should be one of [3.3, 3.4, 4.0, 4.1, 4.2, 4.3]")
       ]);
   };
 
