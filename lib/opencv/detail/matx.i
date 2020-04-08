@@ -15,7 +15,7 @@
     %include <opencv/detail/matx-3_2_0.i>
     %warn "900:Using an unsupported OpenCV version."
 
-#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION > 1
+#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION > 2
     %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/matx-3_2_0.i>
 

@@ -40,6 +40,26 @@ let
       };
     });
 
+    opencv_4_2 = (super.opencv4.override {
+      enableJPEG = false;
+      enablePNG = false;
+      enableWebP = false;
+      enableEigen = false;
+      enableOpenblas = false;
+      enableContrib = false;
+      enableCuda = false;
+    }).overrideAttrs (oldAttrs: {
+      version = "4.2.0";
+      src = super.fetchFromGitHub {
+        owner  = "opencv";
+        repo   = "opencv";
+        rev    = "4.2.0";
+        sha256 = "1bm8nrhbd4zw11r25hhzbsk3ddy7p2w2x9hd8i9pbbn01cxksmhx";
+      };
+
+      cmakeFlags = oldAttrs.cmakeFlags ++ ["-DBUILD_opencv_imgcodecs=OFF"];
+    });
+
 
     python3 = super.python3.override {
       packageOverrides = py-self: py-super: {
@@ -57,6 +77,12 @@ let
         });
 
         opencv_4_1 = py-super.opencv4;
+
+        opencv_4_2 = py-super.toPythonModule (self.opencv_4_2.override {
+          enablePython = true;
+          pythonPackages = py-self;
+        });
+
       };
     };
 
@@ -68,7 +94,8 @@ let
          else if opencv-version == "3.4" then opencv_3_4
          else if opencv-version == "4.0" then opencv_4_0
          else if opencv-version == "4.1" then opencv_4_1
-         else abort "opencv-version should be one of [3.3, 3.4, 4.0, 4.1]")
+         else if opencv-version == "4.2" then opencv_4_2
+         else abort "opencv-version should be one of [3.3, 3.4, 4.0, 4.1, 4.2]")
       ]);
   };
 

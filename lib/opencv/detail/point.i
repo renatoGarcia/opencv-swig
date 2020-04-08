@@ -15,7 +15,7 @@
     %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/point-3_0_0.i>
 
-#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION > 1
+#elif CV_MAJOR_VERSION == 4 && CV_MINOR_VERSION > 2
     %warn "900:Using an unsupported OpenCV version."
     %include <opencv/detail/point-3_0_0.i>
 
