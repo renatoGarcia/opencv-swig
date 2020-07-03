@@ -13,12 +13,15 @@ The OpenCV itself has a Python binding exposing its API, this library is not tha
 
 ## Hello, world!
 
-The use case of this library is when someone is writing a C++ library, which uses OpenCV
-types on its API, and desires to create a Python binding to that library.
+The use case for this library is when someone writing a C++ library, which uses OpenCV
+types on its public API, wants create a Python binding to that library.
 
-Let's say you have built some C++ library `MyLib` having a `my_lib.hpp` header:
+Let's suppose you have built a C++ library named `MyLib` having a `my_lib.hpp` header:
 
 ```C++
+#ifndef MY_LIB_HPP_INCLUDED
+#define MY_LIB_HPP_INCLUDED
+
 #include <opencv2/core.hpp>
 #include <iostream>
 
@@ -31,11 +34,13 @@ inline auto getImage() -> cv::Mat3b
 {
     return cv::Mat3b(3, 5);
 }
+
+#endif /* MY_LIB_HPP_INCLUDED */
 ```
 
-To generate a `MyLib` Python binding, everything you need is a `my_lib.i` SWIG file as:
+To generate a `MyLib` Python binding all you need is a `my_lib.i` SWIG file as:
 
-```
+```swig
 %module my_lib
 
 %include <opencv.i>
@@ -48,25 +53,58 @@ To generate a `MyLib` Python binding, everything you need is a `my_lib.i` SWIG f
 %include "my_lib.hpp"
 ```
 
-and calling SWIG as in:
+and a `CMakeLists.txt`:
 
-```shell
-swig -I<path to OpenCV-SWIG library> -I<OpenCV include dir> -python -c++ my_lib.i
+```cmake
+cmake_minimum_required(VERSION 3.0)
+
+cmake_policy(SET CMP0074 NEW)
+cmake_policy(SET CMP0078 NEW)
+cmake_policy(SET CMP0086 NEW)
+
+project(MyLib)
+
+find_package(OpenCV-SWIG REQUIRED)
+find_package(SWIG REQUIRED COMPONENTS python)
+find_package(Boost REQUIRED)
+find_package(OpenCV REQUIRED core)
+find_package(Python REQUIRED COMPONENTS Interpreter Development)
+
+include(UseSWIG)
+
+set_property(SOURCE my_lib.i PROPERTY CPLUSPLUS ON)
+swig_add_library(my_lib LANGUAGE python SOURCES my_lib.i my_lib.hpp)
+set_property(
+  TARGET my_lib
+  PROPERTY SWIG_INCLUDE_DIRECTORIES
+    ${OpenCV-SWIG_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
+)
+
+target_include_directories(my_lib
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${Python_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
+    ${Boost_INCLUDE_DIRS}
+)
+
+target_link_libraries(my_lib
+  ${OpenCV_LIBRARIES}
+)
 ```
 
-A `my_lib_wrap.cxx` and `my_lib.py` files will be generated containing the binding source
-code.
-
-On a Linux system the `my_lib_wrap.cxx` can be compiled to a `_my_lib.so` (as expected by
-the Python interpreter) with the command:
+After calling:
 
 ```shell
-g++ -shared -fpic $(pkg-config --cflags --libs python3) $(pkg-config --cflags --libs opencv4) my_lib_wrap.cxx -o _my_lib.so
+mkdir build
+cd build
+cmake .. -DOpenCV-SWIG_ROOT=</path/to/OpenCV-SWIG/install/dir/if/not/on/system/dir>
+make
 ```
 
-Notice that the pkg-config package names (`python3` and `opencv4`) can be slightly
-different on your particular system. That will create a Python module `my_lib` on the
-current directory, and the code bellow should work just fine:
+A Python module `my_lib.py` will be created on the current directory, and the code bellow
+should work just fine:
 
 ```Python
 import my_lib
@@ -84,13 +122,43 @@ cv_img2 = my_lib.Mat3b.from_array(np_arr)
 
 ## Install
 
-To install, just copy all files under the `lib` directory to the same directory as the
-SWIG Python modules (e.g.:`/usr/share/swig/4.0.1/python`). Another option is to copy the
-`lib` directory to another path, `/home/bla/swig_libs` for example, and call SWIG with a
-`-I<dir>` argument. Following the above example:
+To install, execute on the package root dir:
 
+```shell
+mkdir build
+cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=</path/to/install/dir>
 ```
-swig -I/home/bla/swig_libs -c++ -python my_lib.i
+
+### Nix
+
+If using [Nix](https://nixos.org/), any Git commit can be used as `buildInputs` with:
+
+```text
+opencv-swig = pkgs.callPackage (
+  fetchTarball https://github.com/renatoGarcia/opencv-swig/archive/<git-commit-hash>.tar.gz
+) {};
+```
+
+To built the [Hello, World!](#hello-world) example, a `shell.nix` as below will set a
+correct environment:
+
+```nix
+let
+  pkgs = import <nixpkgs> {};
+  opencv-swig = pkgs.callPackage (
+    fetchTarball https://github.com/renatoGarcia/opencv-swig/archive/v1.0.0.tar.gz
+  ) {};
+
+in pkgs.mkShell {
+  buildInputs = [
+    opencv-swig
+    pkgs.boost
+    pkgs.swig
+    pkgs.cmake
+    pkgs.pythonPackages.opencv
+  ];
+}
 ```
 
 ## Supported OpenCV versions
