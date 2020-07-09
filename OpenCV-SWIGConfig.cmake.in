@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+set_and_check(OpenCV-SWIG_INCLUDE_DIRS "@PACKAGE_OpenCV-SWIG_LIBDIR@")
+
+check_required_components(OpenCV-SWIG)
