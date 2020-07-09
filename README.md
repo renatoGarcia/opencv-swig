@@ -128,6 +128,7 @@ To install, execute on the package root dir:
 mkdir build
 cd build
 cmake .. -DCMAKE_INSTALL_PREFIX=</path/to/install/dir>
+make install
 ```
 
 ### Nix
