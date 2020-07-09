@@ -148,7 +148,7 @@ correct environment:
 let
   pkgs = import <nixpkgs> {};
   opencv-swig = pkgs.callPackage (
-    fetchTarball https://github.com/renatoGarcia/opencv-swig/archive/v1.0.0.tar.gz
+    fetchTarball https://github.com/renatoGarcia/opencv-swig/archive/v1.0.1.tar.gz
   ) {};
 
 in pkgs.mkShell {

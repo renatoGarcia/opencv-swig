@@ -17,7 +17,7 @@ let
 
   repo = builtins.fetchGit {
     url = https://github.com/renatoGarcia/opencv-swig.git;
-    ref = "cmake_nix";
+    ref = "master";
     rev = devHash;
   };
 

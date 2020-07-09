@@ -6,7 +6,7 @@ cmake_policy(SET CMP0048 NEW)
 include(CMakePackageConfigHelpers)
 
 
-project(opencv-swig VERSION 1.0.0 LANGUAGES NONE)
+project(opencv-swig VERSION 1.0.1 LANGUAGES NONE)
 
 if(WIN32 AND NOT CYGWIN)
   set(DEF_INSTALL_CMAKE_DIR CMake)
