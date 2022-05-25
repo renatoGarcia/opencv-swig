@@ -103,7 +103,7 @@ cmake .. -DOpenCV-SWIG_ROOT=</path/to/OpenCV-SWIG/install/dir/if/not/on/system/d
 make
 ```
 
-A Python module `my_lib.py` will be created on the current directory, and the code bellow
+A Python module `my_lib.py` will be created on the current directory, and the code below
 should work just fine:
 
 ```Python
